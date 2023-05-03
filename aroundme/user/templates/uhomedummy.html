@@ -1,0 +1,65 @@
+{% extends 'nav.html' %}
+{%  block nav %}
+  <a href="{% url 'uh' %}"><p style="color: rgb(255, 92, 241);background-color: rgb(0, 0, 0);font-family: monospace;"class=" text-center">user home</p></a>
+
+{% if messages %}
+  {% for i in messages %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+   <div class="alert alert-success alert-dimissible">
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+   {{i}}   
+   </div>
+   {% endif %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+   <div class="alert alert-danger alert-dimissible"> 
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+    {{i}}
+    </div>
+   {% endif %}
+  {% endfor %}
+{% endif %}
+
+<div class="row">
+  <div class="col">
+    <div class="col-3 container-fluid">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+
+        <table>
+          
+          {{form.as_table}}
+        </table>
+        <button  class="btn btn-success text-center"type="submit">upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% for i in data %}
+<div class="items-center "><div class=" card mb-5 bg-light text-center " style="width:590px;height: 470px;align-items:center;">
+  {% if i.image %}
+  <img class="card-imgtop" src="{{i.image.url}}" alt="Card-image cap" style="width:300px;height: 250px;">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{i.caption}}</h5>
+    <p class="card-text">{{i.datetime}}</p>
+  </div>
+  
+  <div class="card-body">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token%}
+
+      <table>
+        {{cform.as_table}}
+      </table>
+      <button  class="btn btn-info"type="submit">add comment</button>
+    </form>
+</div>
+
+  
+</div>
+</div>
+{% endfor %}
+
+{% endblock nav%}

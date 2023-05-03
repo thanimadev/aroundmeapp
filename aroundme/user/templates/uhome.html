@@ -1,0 +1,88 @@
+{% extends 'nav.html' %}
+{%  block nav %}
+  <a href="{% url 'uh' %}"><p style="color: rgb(255, 92, 241);background-color: rgb(0, 0, 0);font-family: monospace;"class=" text-center">user home</p></a>
+
+{% if messages %}
+  {% for i in messages %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+   <div class="alert alert-success alert-dimissible">
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+   {{i}}   
+   </div>
+   {% endif %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+   <div class="alert alert-danger alert-dimissible"> 
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+    {{i}}
+    </div>
+   {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+  <div class="row">
+  <div class="col">
+    <div class="col-3 container-fluid">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+
+        <table>
+          
+          {{form.as_table}}
+        </table>
+        <button  class="btn btn-success text-center"type="submit">upload</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  {% for i in data %}
+  <div class="items-center ">
+    <div class=" card mb-5 bg-light text-center " style="width:1350px;height: 1000px;align-items:center;">
+    {% if i.image %}
+    <img class="card-imgtop" src="{{i.image.url}}" alt="Card-image cap" style="width:700px;height: 600px;">
+    {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{i.caption}}</h5>
+    <p class="card-text">{{i.datetime}}</p>
+    <p>posted by:{{i.user.first_name}}</p>
+    <a href="{% url 'addl' i.id %}" class="btn btn-success">
+      <span class="glyphicon glyphicon-heart"></span><h8>show some love</h8> <span class="glyphicon glyphicon-heart"></span>
+      {{i.cntlikes.count}}
+    </a>
+    <p>{{i.likedusers}}</p>
+  </div>
+  
+  <div class=" card card-body">
+    <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#c{{i.id}}" aria-expanded="false" aria-controls="collapseExample">
+      Comments
+    </button>
+    <div id="c{{i.id}}" class="collapse">
+    <form action="{% url 'addc' i.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token%}
+
+      <table>
+        {{cform.as_table}}
+      </table>
+      <button  class="btn btn-info"type="submit">add comment</button>
+    </form>
+    {%for c in comments%}
+    {% if c.post.id == i.id %}
+    <div class=" card">
+      <div class="card-body">
+        <p class="card-title" style="background-color: rgb(248, 191, 248);"><b>{{c.comment}}</b></p>
+        <h8 class="card-text"><strong>Posted on:</strong> {{c.datetime}}</h8>
+        <h8 class="card-text"><strong>Posted by:</strong> {{c.user.first_name}} {{c.user.last_name}}</h8>
+
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+    </div>
+  </div>
+{% endfor %}
+
+
+{% endblock nav%}

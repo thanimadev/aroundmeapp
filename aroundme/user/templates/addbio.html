@@ -1,0 +1,15 @@
+{% extends 'nav.html' %}
+{%  block nav %}
+<h1>Add bio</h1>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table class="table table-info">
+    {{form.as_table}}
+    
+  </table>
+  <div class="text-center"><button class="btn btn-success" type="submit">submit</button></div>
+
+  
+</form>
+
+{% endblock nav %}

@@ -1,0 +1,42 @@
+{% extends 'nav.html' %}
+{%  block nav %}
+  <h3 class=" text-center">My blog</h3>
+
+  
+
+{% for i in data %}
+    <div class="items-center"><div class=" card mb-5 bg-light text-center" style="width:500px;height: 370px;align-items:center;">
+      {% if i.image %}
+      <img class="card-imgtop" src="{{i.image.url}}" alt="Card-image cap" style="width:300px;height: 250px;">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{i.caption}}</h5>
+        <p class="card-text">{{i.datetime}}</p>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'eb' i.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'db' i.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+{% endfor %}
+
+{% if messages %}
+  {% for i in messages %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+   <div class="alert alert-success alert-dimissible">
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+   {{i}}   
+   </div>
+   {% endif %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+   <div class="alert alert-danger alert-dimissible"> 
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+    {{i}}
+    </div>
+   {% endif %}
+  {% endfor %}
+{% endif %}
+  
+
+
+{% endblock nav %}

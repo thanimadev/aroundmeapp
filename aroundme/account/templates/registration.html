@@ -1,0 +1,31 @@
+{% extends 'nav1.html' %}
+{%  block nav %}
+  <h1 class="bg-success font-italic">REGISTRATION</h1>
+  
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-dark">
+      {{form.as_table}}
+      
+    </table>
+    <div class="text-center"><button class="btn btn-success" type="submit">submit</button></div>
+
+    
+  </form>
+{% if messages %}
+  {% for i in messages %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+   <div class="alert alert-success alert-dimissible">
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+   {{i}}   
+   </div>
+   {% endif %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+   <div class="alert alert-danger alert-dimissible"> 
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+    {{i}}
+    </div>
+   {% endif %}
+  {% endfor %}
+{% endif %}
+{% endblock nav %}

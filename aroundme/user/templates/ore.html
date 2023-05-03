@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Sidebar Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+<body style="flex: auto;">
+
+  <!--Sidebar--> 
+<div class="container-fluid">
+  <div class="row" style="color: blueviolet;">
+      <div class="col-sm-3 col-md-2 sidebar sidebar-dark">
+        <ul class="nav nav-sidebar navbar-dark">
+          <img src="/aroundme/pp.png" alt="" width="100px" height="100px">
+          <li class="active text-center text-dark" style="color: rgb(253, 249, 1);"><a href="{% url 'uh' %}">Home</a></li>
+          <li class="text-center text-light" style="color: rgb(255, 230, 0);"><a href="{% url 'bio' %}">Profile</a></li>
+          </ul>
+      </div>-->
+      <!--Main content--> 
+      <div class="col-sm-9 col-md-10 main">
+        <li class="text-center "><a href="{% url 'logout' %}"><button class="btn btn-danger">Logout</button></a></li>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0, 0, 0);">
+        
+        <a href="{% url 'bio' %}"><h5 class="ml-auto font-italic" style="color: rgb(124, 124, 124);
+					font-family: cursive;align-items: center;">WELCOME,{{ request.user.first_name }} </h5></a>
+          
+      </div>-->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(0, 0, 0);">
+          <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data"></form>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0, 0, 0);">
+              <a class="navbar-brand" href="#"><h1 class=" font-italic" style="color: rgb(255, 0, 119); font-family:cursive;">AroundMe</h1></a>
+              <img src="/aroundme/pp.png" alt="">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                
+            <a href="{% url 'bio' %}"><h5 class="ml-auto font-italic" style="color: rgb(124, 124, 124);
+            font-family: cursive;align-items: center;">WELCOME,{{ request.user.first_name }}</h5></a>
+          </div>
+        </nav>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% block nav %}
+          
+  {% endblock nav %}
+</body>
+</html>

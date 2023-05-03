@@ -1,0 +1,60 @@
+{% extends 'nav.html' %}
+{%  block nav %}
+<a href="{% url 'pro' %}"><p style="color: rgb(255, 92, 241);background-color: rgb(0, 0, 0);font-family: monospace;"class=" text-center">profile</p></a>
+
+
+<div class="card">
+    <div class="card-body ">
+      <h3 class="card-title" style="  text-align: center;color: rgb(255, 255, 255); font-family:monospace;background-color: black;"><b>{{request.user.username}}</b></h3>
+      <h6 class="card-subtitle mb-2 text-muted"></h6>
+      <p class="card-text"></p>
+      <div class="text-secondary text-center "><ul class="list-group list-group-flush">
+      {% if request.user.Bio_user %}
+        <li class="text-center list-group-item" style="background-color: black;"><img src="{{request.user.Bio_user.profile_pic.url}}" alt="user" width="170px" height="200px"></li>
+        <li class="list-group-item" style="background-color: black;"><b>First Name :</b>  {{request.user.first_name}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>Last Name :</b> {{request.user.last_name}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>E-mail  :</b>   {{request.user.email}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>Username:</b>  {{request.user.username}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>dob:</b>  {{request.user.Bio_user.dob}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>Phone:</b>  {{request.user.Bio_user.phone}}</li>
+        <li class="list-group-item"style="background-color: black;"><b>STATUS:</b>  {{request.user.Bio_user.status}}</li>
+      {% else %}
+      <li class="list-group-item" style="background-color: black;"><b>First Name :</b> {{request.user.first_name}}</li>
+      <li class="list-group-item"style="background-color: black;"><b>Last Name :</b> {{request.user.last_name}}</li>
+      <li class="list-group-item"style="background-color: black;"><b>E-mail  :</b>   {{request.user.email}}</li>
+      <li class="list-group-item"style="background-color: black;"><b>Username:</b>  {{request.user.username}}</li>
+      {% endif %}
+
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+{% if request.user.Bio_user %} 
+  <a href="{% url 'editbio' request.user.Bio_user.id %}"><div class=" text-center"><button class=" btn btn-info" type="submit">edit bio</button></div></a> 
+  <a href="{% url 'cpw' %}"><div class=" text-center">change password</div></a>
+{% else %}
+  <a href="{% url 'abio' %}"><div class="text-center"><button class="btn btn-info" type="submit">Add Bio</button></div></a>
+{% endif %}
+
+{% if messages %}
+  {% for i in messages %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+   <div class="alert alert-success alert-dimissible">
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+   {{i}}   
+   </div>
+   {% endif %}
+   {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+   <div class="alert alert-danger alert-dimissible"> 
+    <button type="button" class="close" data-dissmiss="alert">&times;</button>
+    {{i}}
+    </div>
+   {% endif %}
+  {% endfor %}
+{% endif %}
+  
+
+{% endblock nav %}
+
